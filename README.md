@@ -2,6 +2,21 @@
 
 A Databricks project that incrementally ingests order CSV files with Auto Loader into a Bronze Delta table, reads Bronze incrementally into a Silver validation and upsert flow, writes rejected rows to a separate table, and creates a Gold daily revenue summary.
 
+## summary
+
+> I built an incremental Databricks Medallion pipeline using Auto Loader, Structured Streaming, and Delta Lake. CSV order files are ingested into a Bronze Delta table with source-file lineage. Silver reads Bronze incrementally as a stream, so after the initial load it processes only new Bronze commits using its own checkpoint. Inside `foreachBatch`, I normalize region values, safely cast amounts and dates, validate records, and use Delta `MERGE` to upsert valid orders by `order_id`. Excluded rows are written to a rejected table, while a Gold table aggregates daily order volume and revenue by region. The use of `availableNow=True` makes the pipeline appropriate for a scheduled Databricks Job.
+
+## Technologies
+
+- Databricks
+- Apache Spark / PySpark
+- Spark Structured Streaming
+- Databricks Auto Loader (`cloudFiles`)
+- Delta Lake
+- Unity Catalog Volumes
+- Databricks SQL
+
+
 ## Architecture
 
 ```mermaid
@@ -270,9 +285,9 @@ FROM cloud_files_state(
 
 ## Scheduling
 
-The notebook does not define a Databricks Job schedule. It is designed for scheduled execution because both streams use `availableNow=True` and `awaitTermination()`. Schedule the ingestion and downstream processing externally, preserve all state paths across runs.
+It is designed for scheduled execution because both streams use `availableNow=True` and `awaitTermination()`. Schedule the ingestion and downstream processing externally, preserve all state paths across runs.
 
-## Suggested repository layout
+## repository layout
 
 ```text
 .
@@ -281,29 +296,3 @@ The notebook does not define a Databricks Job schedule. It is designed for sched
 ├── README.md
 ├── data/                 # sample CSVs
 ```
-
-## Production considerations
-
-These are recommended hardening steps, not extra behavior in the notebook.
-
-- Apply deterministic ordering when duplicate `order_id` values exist; `dropDuplicates(["order_id"])` does not define the winning row.
-- Add explicit `quantity` casting and validation if it is required by the Silver schema.
-- Preserve raw invalid values and add a rejection reason for data-quality remediation.
-- Treat Bronze as append-only while it is a streaming source. If upstream changes must be propagated, use an explicit change-handling strategy.
-- Monitor stream failures, batch duration, input file counts, Silver merge results, and rejected-row counts.
-- Keep incoming files immutable and use new file paths for each delivery.
-
-## summary
-
-> I built an incremental Databricks Medallion pipeline using Auto Loader, Structured Streaming, and Delta Lake. CSV order files are ingested into a Bronze Delta table with source-file lineage. Silver reads Bronze incrementally as a stream, so after the initial load it processes only new Bronze commits using its own checkpoint. Inside `foreachBatch`, I normalize region values, safely cast amounts and dates, validate records, and use Delta `MERGE` to upsert valid orders by `order_id`. Excluded rows are written to a rejected table, while a Gold table aggregates daily order volume and revenue by region. The use of `availableNow=True` makes the pipeline appropriate for a scheduled Databricks Job.
-
-## Technologies
-
-- Databricks
-- Apache Spark / PySpark
-- Spark Structured Streaming
-- Databricks Auto Loader (`cloudFiles`)
-- Delta Lake
-- Unity Catalog Volumes
-- Databricks SQL
-
