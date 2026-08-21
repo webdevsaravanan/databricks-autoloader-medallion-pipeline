@@ -1,0 +1,6 @@
+order_id,customer_id,product,region,quantity,amount,order_date,status
+ORD-1105,CUST-201,Keyboard,North,2,249.99,2026-08-21,completed
+ORD-1106,CUST-202,Mouse,South,1,89.50,2026-08-21,pending
+ORD-1107,CUST-203,Monitor,West,2,799.00,2026-08-21,completed
+ORD-1108,CUST-204,Webcam,East,1,not_available,2026-08-21,completed
+ORD-1109,CUST-205,Headset,North,3,159.75,2026-08-21,returned

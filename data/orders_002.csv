@@ -1,0 +1,13 @@
+order_id,customer_id,product,region,quantity,amount,order_date,status
+ORD-1031,CUST-166,Webcam,East,1,979.88,2026-08-13,completed
+ORD-1048,CUST-156,Dock,North,2,433.49,2026-08-16,completed
+ORD-1034,CUST-161,Notebook,West,3,794.95,2026-08-13,completed
+ORD-1073,CUST-174,Monitor,West,3,718.08,2026-08-11,completed
+ORD-1026,CUST-161,Webcam,East,1,156.79,2026-08-17,completed
+ORD-1003,CUST-130,Cable,West,1,821.44,2026-08-11,completed
+ORD-1096,CUST-121,Webcam,West,3,290.79,2026-08-12,completed
+ORD-1053,CUST-142,Mouse,North,1,975.48,2026-08-16,completed
+ORD-1101,CUST-149,Headset,South,4,203.76,2026-08-20,completed
+ORD-1102,CUST-107,Webcam,East,3,105.59,2026-08-20,completed
+ORD-1103,CUST-164,Keyboard,North,3,629.82,2026-08-20,completed
+ORD-1104,CUST-149,Headset,West,4,668.68,2026-08-20,completed
