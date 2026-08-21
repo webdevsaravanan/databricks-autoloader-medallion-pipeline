@@ -34,6 +34,16 @@ flowchart LR
     K --> L["workspace.first_project_autoload.revenue_by_region_day"]
 ```
 
+## repository layout
+
+```text
+.
+├── First_Project_with_Autoload.ipynb
+├── First_Project_with_Autoload.dbc
+├── README.md
+├── data/                 # sample CSVs
+```
+
 ## What the notebook implements
 
 ### 1. Provision Databricks objects
@@ -286,13 +296,3 @@ FROM cloud_files_state(
 ## Scheduling
 
 It is designed for scheduled execution because both streams use `availableNow=True` and `awaitTermination()`. Schedule the ingestion and downstream processing externally, preserve all state paths across runs.
-
-## repository layout
-
-```text
-.
-├── First_Project_with_Autoload.ipynb
-├── First_Project_with_Autoload.dbc
-├── README.md
-├── data/                 # sample CSVs
-```
