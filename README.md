@@ -105,7 +105,7 @@ query.awaitTermination()
 
 ### 3. Stream Bronze incrementally to Silver
 
-This is the updated design. Silver uses the Bronze Delta table as its streaming source:
+Silver uses the Bronze Delta table as its streaming source:
 
 ```python
 silver_source = spark.readStream.table(
